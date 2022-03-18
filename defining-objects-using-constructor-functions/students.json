@@ -1,0 +1,31 @@
+[
+    {
+        "name":"Julius",
+        "dob":"1999-09-26",
+        "qualification":"KCSE Certificate",
+        "attendance":[],
+        "grades":[],
+        "course":{},
+        "avarageGrade":0
+    },
+
+    {
+        "name":"Faith",
+        "dob":"1999-09-26",
+        "qualification":"KCSE Certificate",
+        "attendance":[],
+        "grades":[],
+        "course":{},
+        "avarageGrade":0
+    },
+
+    {
+        "name":"Mich",
+        "dob":"1999-09-26",
+        "qualification":"KCSE Certificate",
+        "attendance":[],
+        "grades":[],
+        "course":{},
+        "avarageGrade":0
+    }
+]

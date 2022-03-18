@@ -23,6 +23,8 @@ Student.prototype.grade = function(course, grade, date){
         grade,
         date
     });
+
+    this.calculateAvarageGrade();
 }
 
 Student.prototype.calculateAvarageGrade = function(){

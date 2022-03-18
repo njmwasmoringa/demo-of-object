@@ -1,6 +1,13 @@
+let selectedStudent;
+
 $(document).ready(function(){
 
-    $('form').on('submit', function(evt){
+    updateTheTable();
+
+    const studentFormModal = new bootstrap.Modal($('#addStudentForm'));
+    const gradingModal = new bootstrap.Modal($('#gradeingForm'));
+
+    $('#addStudentForm form').on('submit', function(evt){
         evt.preventDefault();
 
         const form = this;
@@ -15,6 +22,25 @@ $(document).ready(function(){
         students.push(student);
 
         form.reset();
+        studentFormModal.hide();
+        updateTheTable();
+        /* const formData = new FormData(form);
+        console.log(formData.get('name')); */
+
+    });
+
+    $('#gradeingForm form').on('submit', function(evt){
+        evt.preventDefault();
+
+        const form = this;
+        const grade = $(this).find('#grade').val();
+        const course = $(this).find('#course').val();
+        
+        console.log(selectedStudent);
+        selectedStudent.grade(course, grade, new Date());
+
+        form.reset();
+        gradingModal.hide();
         updateTheTable();
         /* const formData = new FormData(form);
         console.log(formData.get('name')); */
@@ -22,26 +48,37 @@ $(document).ready(function(){
     });
 
     for(let course of courses){
-        $('#course').append(`<option value="${course.name}">${course.name}</option>`);
+        $('.courses-select').append(`<option value="${course.name}">${course.name}</option>`);
     }
 
 });
 
 function updateTheTable(){
     $('table tbody').html('');
+    let i = -1;
     for(let student of students){
+        i++
         $('table tbody').append(`
             <tr>
                 <td>${student.name}</td>
-                <td>${student.course.name}</td>
+                <td>${student.course.name ? student.course.name : '<button class="btn btn-sm btn-warning" data-indexOfStudent="'+i+'">Enroll</button>'}</td>
                 <td>${student.avarageGrade}</td>
-                <td> <button type="button" class="btn gradingButton">Grade</button> </td>
+                <td align="right"><button type="button" class="btn gradingButton" data-indexOfStudent="${i}">Grade</button></td>
             </tr>
         `);
     }
 
-    $('table tbody button').each(function(){
-        $(this).on('click', grade);
+    $('table tbody td:nth-child(4) button').each(function(){
+        $(this).on('click', function(){
+            const studentData = $(this).data();
+            selectedStudent = students[studentData.indexOfStudent];
+            const gradingModal = new bootstrap.Modal($('#gradeingForm'));
+            gradingModal.show();
+        });
+    });
+
+    $('table tbody td:nth-child(2) button').each(function(){
+        // alert('enroll')
     });
 }
 
